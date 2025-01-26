@@ -17,7 +17,7 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ message: "Internal Server Error" });
 });
 const port = process.env.PORT || 4002;
-const serviceName = process.env.SERVICE_NAME || "inventory-service";
+const serviceName = process.env.SERVICE_NAME || "Inventory-Service";
 
 app.listen(port, () => {
   console.log(`Alhamdu lillah, ${serviceName} is running on port ${port}`);
