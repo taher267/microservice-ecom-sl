@@ -9,28 +9,37 @@ const createInventory = async (
 ) => {
   try {
     // Validate request body
-    const parsedBody = InventoryCreateDTOSchema.safeParse(req.body);
-    const { success, error, data } = parsedBody;
-    if (!parsedBody.success) {
+    const { success, error, data } = InventoryCreateDTOSchema.safeParse(
+      req.body
+    );
+    if (!success) {
       res.status(400).json({
-        error: parsedBody.error.errors,
+        error: error.errors,
       });
+      return;
     }
     // Create Inventory
     const inventory = await prisma.inventory.create({
       data: {
-        ...parsedBody.data,
-        // InventoryHistories: {
-        //   create: {
-        //     actionType: "IN",
-        //     quantityChanged: 1,
-        //     newQuantity: 1,
-        //     lastQuantity: 0,
-        //   },
-        // },
+        ...data,
+        inventoryHistories: {
+          create: {
+            actionType: "IN",
+            quantityChanged: data.quantity,
+            newQuantity: data.quantity,
+            lastQuantity: 0,
+          },
+        },
+      },
+      select: {
+        id: true,
+        quantity: true,
       },
     });
+    res.status(201).json(inventory);
   } catch (e) {
     next(e);
   }
 };
+
+export default createInventory;

@@ -6,7 +6,7 @@ CREATE TABLE "Inventory" (
     "id" TEXT NOT NULL,
     "sku" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
-    "quanity" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -21,6 +21,8 @@ CREATE TABLE "InventoryHistory" (
     "lastQuantity" INTEGER NOT NULL,
     "newQuantity" INTEGER NOT NULL,
     "inventoryId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "InventoryHistory_pkey" PRIMARY KEY ("id")
 );
