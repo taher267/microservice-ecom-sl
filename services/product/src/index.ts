@@ -10,8 +10,17 @@ app.use([express.json(), cors(), morgan("dev")]);
 app.get("/health", (_req, res) => {
   res.status(200).json({ message: "Alhamdu lillah", status: "UP" });
 });
-
-app.get("/products/:id/details", getProductDetails);
+app.use((req, res, next) => {
+  const allowedOrigins = ["http://localhost:8081", "http://172.0.0.1"];
+  const origin = req.headers.origin || "";
+  if (!allowedOrigins.includes(origin)) {
+    res.status(403).json({ code: 403, message: "Forbidden" });
+    return;
+  }
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  next();
+});
+app.get("/products/:id", getProductDetails);
 app.post("/products", createProduct);
 app.get("/products", getProducts);
 // app.put("/products/:id", updateInventory);
