@@ -1,3 +1,2 @@
-export { default as authRegistration } from "@/controllers/authRegistration";
-export { default as authLogin } from "@/controllers/sentEmail";
-export { default as verifyAccessToken } from "@/controllers/verifyAccessToken";
+export { default as getEmails } from "@/controllers/getEmails";
+export { default as sendEmail } from "@/controllers/sendEmail";

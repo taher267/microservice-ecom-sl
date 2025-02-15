@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { EmailCreateDTOSchema } from "@/schemas";
 import prisma from "@/prisma";
-import bcrypt from "bcrypt";
 import { defaultSender, transport } from "@/config";
 
-const sentEmail = async (req: Request, res: Response, next: NextFunction) => {
+const sendEmail = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { body: reqBody, headers, ip } = req;
 
@@ -53,4 +52,4 @@ const sentEmail = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default sentEmail;
+export default sendEmail;

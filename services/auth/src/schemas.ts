@@ -20,3 +20,7 @@ export const accessTokenDTOSchema = z
     accessToken: z.string(),
   })
   .required();
+export const EmailVerificationDTOSchema = z.object({
+  email: z.string().email(),
+  code: z.string(),
+});

@@ -56,14 +56,9 @@ const authRegistration = async (
     });
 
     if (!auth) {
-      await createLoginHistory({
-        authId: data.email,
-        ipAddress,
-        userAgent,
-        attempt: LoginAttempt.FAILED,
-      });
       res.status(400).json({
         message: "Invalid credentials!",
+        code: 400,
       });
       return;
     }

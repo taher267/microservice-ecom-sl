@@ -3,7 +3,19 @@ import { AuthRegistrationDTOSchema } from "@/schemas";
 import prisma from "@/prisma";
 import bcrypt from "bcrypt";
 import axios from "axios";
-import { USER_SERVICE } from "@/config";
+import { EMAIL_SERVICE, USER_SERVICE } from "@/config";
+
+const generateVerificationCode = () => {
+  // Get current timestamp in milliseconds
+  const timestamp = new Date().getTime().toString();
+
+  // Generate a random 2-digit number
+  const randomNuber = Math.floor(10 + Math.random() * 90);
+
+  // Cobine timestamp and random bumber and extract last 5 degits
+  let code = (timestamp + randomNuber).slice(-5);
+  return code;
+};
 
 const authRegistration = async (
   req: Request,
@@ -63,10 +75,29 @@ const authRegistration = async (
       email: auth.email,
     });
 
-    // TODO Generate verification code
-    // TODO email sending
-
-    res.status(201).json({ code: 201, ...auth });
+    // Generate verification code
+    const code = generateVerificationCode();
+    await prisma.verificationCode.create({
+      data: {
+        authId: auth.id,
+        code,
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), //24 hrs
+      },
+    });
+    //  email sending
+    axios.post(`${EMAIL_SERVICE}/emails/send`, {
+      recipient: auth.email,
+      subject: `Email verification`,
+      body: `Your verification code is ${code}`,
+      source: `user-registration`,
+    });
+    res
+      .status(201)
+      .json({
+        code: 201,
+        auth,
+        message: `User created. Check you email for verification code`,
+      });
   } catch (e) {
     next(e);
   }
