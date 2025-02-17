@@ -27,8 +27,7 @@ const sendEmail = async (req: Request, res: Response, next: NextFunction) => {
       subject,
     };
     const { rejected } = await transport.sendMail(emailOption);
-
-    if (!rejected.length) {
+    if (rejected.length) {
       console.log(`Email rejected`, rejected);
       res.status(500).json({
         code: 500,
@@ -48,6 +47,7 @@ const sendEmail = async (req: Request, res: Response, next: NextFunction) => {
     });
     res.status(200).json({ code: 200 });
   } catch (e) {
+    console.log(e);
     next(e);
   }
 };

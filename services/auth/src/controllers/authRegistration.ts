@@ -35,7 +35,6 @@ const authRegistration = async (
       });
       return;
     }
-
     // Check if the email already exists
     const existingAuth = await prisma.auth.findFirst({
       where: { email: data.email },
@@ -85,19 +84,17 @@ const authRegistration = async (
       },
     });
     //  email sending
-    axios.post(`${EMAIL_SERVICE}/emails/send`, {
+    await axios.post(`${EMAIL_SERVICE}/emails/send`, {
       recipient: auth.email,
       subject: `Email verification`,
       body: `Your verification code is ${code}`,
       source: `user-registration`,
     });
-    res
-      .status(201)
-      .json({
-        code: 201,
-        auth,
-        message: `User created. Check you email for verification code`,
-      });
+    res.status(201).json({
+      code: 201,
+      auth,
+      message: `User created. Check you email for verification code`,
+    });
   } catch (e) {
     next(e);
   }

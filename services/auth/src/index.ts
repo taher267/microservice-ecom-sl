@@ -2,7 +2,12 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { authLogin, authRegistration, verifyEmail } from "@/controllers";
+import {
+  authLogin,
+  authRegistration,
+  verifyEmail,
+  verifyAccessToken,
+} from "@/controllers";
 
 const app = express();
 app.use([express.json(), cors(), morgan("dev")]);
@@ -14,6 +19,7 @@ app.get("/health", (_req, res) => {
 app.post("/auth/register", authRegistration);
 app.post("/auth/login", authLogin);
 app.post("/auth/verify-email", verifyEmail);
+app.post("/auth/verify-access-token", verifyAccessToken);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "Not Found" });

@@ -29,7 +29,7 @@ services:
       - "5051:443"
   mailhog:
     image: mailhog/mailhog
-    container_name: mailhog
+    container_name: mailhog2
     ports:
       - "1025:1025"
       - "8025:8025"

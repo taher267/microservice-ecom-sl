@@ -32,14 +32,23 @@ const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
     const verificationCode = await prisma.verificationCode.findFirst({
       where: { code: data.code, authId: auth.id },
     });
+    // console.log(verificationCode);
     if (!verificationCode) {
       res.status(400).json({
         message: "Invalid verification code.",
       });
       return;
     }
+    const { status, expiresAt } = verificationCode;
     // if the code has expired
-    if (verificationCode.expiresAt < new Date()) {
+    if (status !== "PENDING") {
+      res.status(400).json({
+        message: `Verification code is ${status.toLocaleLowerCase()}.`,
+      });
+      return;
+    }
+    // if the code has expired
+    if (expiresAt < new Date()) {
       res.status(400).json({
         message: "Verification code expired.",
       });
