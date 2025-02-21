@@ -12,6 +12,8 @@ const verifyAccessToken = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.headers);
+
     // Validate request body
     const { success, error, data } = accessTokenDTOSchema.safeParse(req.body);
 
@@ -41,7 +43,7 @@ const verifyAccessToken = async (
       });
       return;
     }
-    res.status(200).json({ code: 200, message: "Authorized", ...auth });
+    res.status(200).json({ code: 200, message: "Authorized", user: auth });
   } catch (e) {
     next(e);
   }
