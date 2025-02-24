@@ -1,0 +1,16 @@
+export const REDIS_PORT = process.env.REDIS_PORT
+  ? parseInt(process.env.REDIS_PORT)
+  : 6379;
+export const REDIS_HOST = process.env.REDIS_HOST || "localhost";
+export const CART_TTL = process.env.CART_TTL
+  ? parseInt(process.env.CART_TTL)
+  : 900;
+
+export const INVENTORY_SERVICE =
+  process.env.INVENTORY_SERVICE_URL || "http://localhost:4002";
+
+export const USER_SERVICE =
+  process.env.USER_SERVICE_URL || "http://localhost:4004";
+
+export const EMAIL_SERVICE =
+  process.env.EMAIL_SERVICE || "http://localhost:4005";
