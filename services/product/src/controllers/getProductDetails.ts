@@ -10,6 +10,7 @@ const getProductDetails = async (
 ) => {
   try {
     const { id } = req.params;
+
     // Retrive product
     const product = await prisma.product.findFirst({
       where: { id },

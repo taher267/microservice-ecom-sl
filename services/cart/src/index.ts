@@ -2,16 +2,21 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { addToCart } from "@/controllers";
-
+import { addToCart, clearCart, getMyCart } from "@/controllers";
+import "@/events";
 const app = express();
 app.use([express.json(), cors(), morgan("dev")]);
+
+// TODO Auth middleware
+
+// routes
+app.post("/cart/add-to-cart", addToCart);
+app.get("/cart/me", getMyCart);
+app.get("/cart/clear", clearCart);
 
 app.get("/health", (_req, res) => {
   res.status(200).json({ message: "Alhamdu lillah", status: "UP" });
 });
-
-app.post("/cart/add-to-cart", addToCart);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "Not Found" });

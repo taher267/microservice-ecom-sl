@@ -1,4 +1,3 @@
-// import "dotenv/config";
 import { Redis } from "ioredis";
 
 import { REDIS_HOST, REDIS_PORT } from "./config";
