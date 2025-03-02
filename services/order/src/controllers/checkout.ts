@@ -48,6 +48,7 @@ const checkout = async (req: Request, res: Response, next: NextFunction) => {
     // get product details from cart item
     const productDetails = await Promise.all(
       cartItems.data.map(async (item) => {
+        console.log(item.productId);
         const { data: product } = await axios.get(
           `${PRODUCT_SERVICE}/products/${item.productId}`
         );
@@ -56,7 +57,7 @@ const checkout = async (req: Request, res: Response, next: NextFunction) => {
           productName: product.name as string,
           sku: product.sku as string,
           price: product.price as number,
-          quantity: product.quantity as number,
+          quantity: item.quantity as number,
           total: product.price * item.quantity,
         };
       })
@@ -83,9 +84,22 @@ const checkout = async (req: Request, res: Response, next: NextFunction) => {
       //   quantity: true,
       // },
     });
+    // clear cart
+    axios.get(`${CART_SERVICE}/cart/clear`, {
+      headers: {
+        "x-cart-session-id": data.cartSessionId,
+      },
+    });
+    axios.post(`${EMAIL_SERVICE}/emails/send`, {
+      recipient: data.userEmail,
+      subject: "Order confirmation.",
+      body: `Thank you for your order. Your order id is ${order.id}. Your order total is ${grandTotal}`,
+      source: "Checkout",
+    });
 
-    res.status(201).json(order); // Send the created order as a response
+    res.status(201).json({ code: 201, data: order }); // Send the created order as a response
   } catch (e) {
+    console.log(e);
     next(e);
   }
 };

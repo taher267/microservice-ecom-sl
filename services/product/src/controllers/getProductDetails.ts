@@ -77,6 +77,7 @@ const getProductDetails = async (
       code: 200,
       ...product,
       inventoryId,
+      // quantity: inventory.quantity,
       stock,
       stockStatus: stock > 0 ? "In stock" : "Out of stock",
     });
