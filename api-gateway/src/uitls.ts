@@ -26,6 +26,7 @@ export const createHandler = ({
         headers: {
           "x-user-id": req.headers["x-user-id"],
           "user-agent": req.headers["user-agent"],
+          "x-cart-session-id": req.headers["x-cart-session-id"],
           origin: process.env.GET_WAY_URL,
         },
       });
