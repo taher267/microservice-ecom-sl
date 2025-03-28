@@ -4,17 +4,17 @@
       "url": "http://localhost:4001",
       "routes": [
         {
-          "path": "/products",
+          "path": "/",
           "methods": ["get"],
           "middlewares": []
         },
         {
-          "path": "/products",
+          "path": "/",
           "methods": ["post"],
           "middlewares": ["auth"]
         },
         {
-          "path": "/products/:id",
+          "path": "/:id",
           "methods": ["get", "put", "delete"],
           "middlewares": ["auth"]
         }
@@ -23,9 +23,9 @@
     "inventory": {
       "url": "http://localhost:4002",
       "routes": [
-        { "path": "/inventories/:id", "methods": ["put"], "middlewares": [] },
+        { "path": "/:id", "methods": ["put"], "middlewares": [] },
         {
-          "path": "/inventories/:id/details",
+          "path": "/:id/details",
           "methods": ["get"],
           "middlewares": ["auth"]
         }
@@ -33,20 +33,21 @@
     },
     "auth": {
       "url": "http://localhost:4003",
+
       "routes": [
-        { "path": "/auth/register", "methods": ["post"], "middlewares": [] },
+        { "path": "/register", "methods": ["post"], "middlewares": [] },
         {
-          "path": "/auth/login",
+          "path": "/login",
           "methods": ["post"],
           "middlewares": []
         },
         {
-          "path": "/auth/verify-email",
+          "path": "/verify-email",
           "methods": ["post"],
           "middlewares": []
         },
         {
-          "path": "/auth/verify-access-token",
+          "path": "/verify-access-token",
           "methods": ["post"],
           "middlewares": []
         }
@@ -56,12 +57,12 @@
       "url": "http://localhost:4006",
       "routes": [
         {
-          "path": "/cart/add-to-cart",
+          "path": "/add-to-cart",
           "methods": ["post"],
           "middlewares": []
         },
         {
-          "path": "/cart/me",
+          "path": "/me",
           "methods": ["get"],
           "middlewares": []
         }
@@ -71,17 +72,17 @@
       "url": "http://localhost:4007",
       "routes": [
         {
-          "path": "/orders",
+          "path": "/",
           "methods": ["get"],
           "middlewares": ["auth"]
         },
         {
-          "path": "/orders/checkout",
+          "path": "/checkout",
           "methods": ["post"],
           "middlewares": ["auth"]
         },
         {
-          "path": "/orders/:id",
+          "path": "/:id",
           "methods": ["get"],
           "middlewares": ["auth"]
         }

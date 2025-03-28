@@ -16,10 +16,10 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ message: "Alhamdu lillah", status: "UP" });
 });
 
-app.get("/products/:id", getProductDetails);
-app.post("/products", createProduct);
-app.get("/products", getProducts);
-app.put("/products/:id", updateProduct);
+app.get("/:id", getProductDetails);
+app.post("/", createProduct);
+app.get("/", getProducts);
+app.put("/:id", updateProduct);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "Not Found" });

@@ -29,14 +29,9 @@ const createLoginHistory = async ({
   });
 };
 
-const authRegistration = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const authLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { body, headers, ip } = req;
-
     const ipAddress = (headers["x-forwarded-for"] || ip || "") as string;
     const userAgent = headers["user-agent"] || "";
 
@@ -134,4 +129,4 @@ const authRegistration = async (
   }
 };
 
-export default authRegistration;
+export default authLogin;

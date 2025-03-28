@@ -16,10 +16,10 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ message: "Alhamdu lillah", status: "UP" });
 });
 
-app.post("/auth/register", authRegistration);
-app.post("/auth/login", authLogin);
-app.post("/auth/verify-email", verifyEmail);
-app.post("/auth/verify-access-token", verifyAccessToken);
+app.post("/register", authRegistration);
+app.post("/login", authLogin);
+app.post("/verify-email", verifyEmail);
+app.post("/verify-access-token", verifyAccessToken);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "Not Found" });

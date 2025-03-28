@@ -25,10 +25,10 @@ app.get("/health", (_req, res) => {
 //   res.setHeader("Access-Control-Allow-Origin", origin);
 //   next();
 // });
-app.get("/inventories/:id", getInventoryById);
-app.get("/inventories/:id/details", getInventoryDetails);
-app.post("/inventories", createInventory);
-app.put("/inventories/:id", updateInventory);
+app.get("/:id", getInventoryById);
+app.get("/:id/details", getInventoryDetails);
+app.post("", createInventory);
+app.put("/:id", updateInventory);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "Not Found" });

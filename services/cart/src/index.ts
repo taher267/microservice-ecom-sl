@@ -10,9 +10,9 @@ app.use([express.json(), cors(), morgan("dev")]);
 // TODO Auth middleware
 
 // routes
-app.post("/cart/add-to-cart", addToCart);
-app.get("/cart/me", getMyCart);
-app.get("/cart/clear", clearCart);
+app.post("/add-to-cart", addToCart);
+app.get("/me", getMyCart);
+app.get("/clear", clearCart);
 
 app.get("/health", (_req, res) => {
   res.status(200).json({ message: "Alhamdu lillah", status: "UP" });

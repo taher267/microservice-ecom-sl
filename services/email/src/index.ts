@@ -11,8 +11,8 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ message: "Alhamdu lillah", status: "UP" });
 });
 
-app.post("/emails/send", sendEmail);
-app.get("/emails", getEmails);
+app.post("/send", sendEmail);
+app.get("/", getEmails);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "Not Found" });
